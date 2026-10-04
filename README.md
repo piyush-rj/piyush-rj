@@ -1,8 +1,8 @@
 <p>Engineer at <a href="https://heylomi.ai">Lomi</a></p>
 
-I build applications end to end: the product, the backend behind it, and the infrastructure it runs on. Currently exploring Rust, Motion and designs.
+I'm a frontend engineer who cares about how software feels as much as how it works. I spend my time on interfaces, motion, and the small micro-interactions that make a product feel considered.
 
-Away from the terminal I am usually listening to something loud or reading about rust.
+Away from the keyboard I'm usually learning Rust or sharpening my design eye.
 
 <br>
 
@@ -44,7 +44,7 @@ Away from the terminal I am usually listening to something loud or reading about
 ### Experience
 
 **Engineer at [Lomi](https://heylomi.ai)**
-Building applications from the ground up for educators and creators, and the backend behind them, which serves 400 million requests a day with high availability.
+Lomi is a team workspace that puts chat, meetings, documents, and tool integrations (GitHub, Google Workspace) into one shared memory. It can search across everything the team has said, transcribe and take notes on meetings, organize work with channels and labels, and turn conversations into living documents the team edits together.
 
 **Open-source contributor at [Twenty](https://github.com/twentyhq/twenty)** &nbsp;·&nbsp; `2026`
 Fixed UI bugs across the codebase, improving layout and responsiveness, and worked with the community to keep the design consistent across the platform.
@@ -53,7 +53,7 @@ Fixed UI bugs across the codebase, improving layout and responsiveness, and work
 
 ### Stack
 
-`TypeScript` `Next.js` `React` `Tailwind CSS` `Node.js` `Socket.IO` `PostgreSQL` `Redis` `Rust` `Docker` `Kubernetes` `AWS`
+`TypeScript` `Next.js` `React` `Tailwind CSS` `Node.js` `Socket.IO` `PostgreSQL` `Redis` `Motion` `Docker` `Rust` `AWS`
 
 <br>
 
