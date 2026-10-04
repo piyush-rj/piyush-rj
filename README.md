@@ -8,46 +8,63 @@ Away from the keyboard I'm usually learning Rust or sharpening my design eye.
 
 ### Work
 
-<table>
+<table width="100%">
   <tr>
-    <td width="50%" valign="top">
-      <a href="https://winterfell.dev"><img src="https://raw.githubusercontent.com/kant-github/kant-portfolio/main/public/images/work/winterfell.png" alt="Winterfell" /></a>
+    <td width="33%" valign="top">
+      <a href="https://heydarwin.app"><img src="images/darwin.png" alt="Darwin" /></a>
+      <br><br>
+      <b><a href="https://heydarwin.app">Darwin</a></b><br>
+      An agent picks up an issue, works in its own sandbox, and opens the pull request.
+    </td>
+    <td width="33%" valign="top">
+      <a href="https://winterfell.dev"><img src="images/winterfell.png" alt="Winterfell" /></a>
       <br><br>
       <b><a href="https://winterfell.dev">Winterfell</a></b><br>
-      Write, test and deploy Anchor smart contracts on Solana from the browser. First place at the Superteam India Hackathon.
+      Write, test and deploy Solana contracts from the browser. Superteam India hackathon winner.
     </td>
-    <td width="50%" valign="top">
-      <a href="https://heydarwin.app"><img src="https://raw.githubusercontent.com/kant-github/kant-portfolio/main/public/images/work/matcha.png" alt="Matcha" /></a>
+    <td width="33%" valign="top">
+      <a href="https://riva.piyushraj.site"><img src="images/riva.png" alt="Riva" /></a>
       <br><br>
-      <b><a href="https://heydarwin.app">Matcha</a></b><br>
-      An engineering board where an agent picks up an issue, works on it in its own sandbox, and opens the pull request for review.
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <a href="https://highgarden.trade"><img src="https://raw.githubusercontent.com/kant-github/kant-portfolio/main/public/images/work/highgarden.png" alt="HighGarden" /></a>
-      <br><br>
-      <b><a href="https://highgarden.trade">HighGarden</a></b><br>
-      A prediction market built on Solana, made to settle fast.
-    </td>
-    <td width="50%" valign="top">
-      <a href="https://nocturn.app"><img src="https://raw.githubusercontent.com/kant-github/kant-portfolio/main/public/images/work/nocturn.png" alt="Nocturn" /></a>
-      <br><br>
-      <b><a href="https://nocturn.app">Nocturn</a></b><br>
-      A real-time quiz platform where players compete for on-chain rewards, with rooms synced over WebSockets and Redis Pub/Sub.
+      <b><a href="https://riva.piyushraj.site">Riva</a></b><br>
+      Motion-first React components on real spring physics, added through the shadcn CLI.
     </td>
   </tr>
 </table>
+
+<hr>
+
+<div align="start">
+
+<table width="66%">
+  <tr>
+    <td width="50%" valign="top">
+      <br>
+      <a href="https://highgarden.trade"><img src="images/highgarden.png" alt="HighGarden" /></a>
+      <br><br>
+      <b><a href="https://highgarden.trade">HighGarden</a></b><br>
+      A prediction market built on Solana, made to settle fast. Trade yes/no outcomes in USDC.
+    </td>
+    <td width="50%" valign="top">
+      <br>
+      <a href="https://nocturn.app"><img src="images/nocturn.png" alt="Nocturn" /></a>
+      <br><br>
+      <b><a href="https://nocturn.app">Nocturn</a></b><br>
+      A real-time quiz platform with on-chain rewards, synced over WebSockets and Redis.
+    </td>
+  </tr>
+</table>
+
+</div>
 
 <br>
 
 ### Experience
 
-**Engineer at [Lomi](https://heylomi.ai)**
+**Engineer at [Lomi](https://heylomi.ai)**<br>
 Lomi is a team workspace that puts chat, meetings, documents, and tool integrations (GitHub, Google Workspace) into one shared memory. It can search across everything the team has said, transcribe and take notes on meetings, organize work with channels and labels, and turn conversations into living documents the team edits together.
 
-**Open-source contributor at [Twenty](https://github.com/twentyhq/twenty)** &nbsp;·&nbsp; `2026`
-Fixed UI bugs across the codebase, improving layout and responsiveness, and worked with the community to keep the design consistent across the platform.
+**Open-source contributor at [Twenty](https://github.com/twentyhq/twenty)** &nbsp;·&nbsp; `2026`<br>
+Added recursive text extraction for note previews so text, links, and nested Blocknote nodes render consistently.
 
 <br>
 
@@ -57,42 +74,32 @@ Fixed UI bugs across the codebase, improving layout and responsiveness, and work
 
 <br>
 
-### Personal
-
-<table>
-  <tr>
-    <td><img src="https://raw.githubusercontent.com/kant-github/kant-portfolio/main/public/images/gallery/01.jpg" alt="With friends on a night out" /></td>
-  </tr>
-</table>
-
-<br>
-
 ### Reach me
 
 <p>
   <a href="https://piyushraj.site" title="Portfolio">
-    <img src="https://img.icons8.com/fluency/48/domain.png" width="28" alt="Portfolio" />
+    <img src="images/piyush-round.png" width="25" height="25" align="middle" alt="Portfolio" />
   </a>
   &nbsp;&nbsp;
   <a href="https://github.com/piyush-rj" title="GitHub">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://img.icons8.com/ios-glyphs/60/ffffff/github.png">
-      <img src="https://img.icons8.com/ios-glyphs/60/github.png" width="28" alt="GitHub" />
+      <img src="https://img.icons8.com/ios-glyphs/60/github.png" width="28" align="middle" alt="GitHub" />
     </picture>
   </a>
   &nbsp;&nbsp;
   <a href="https://x.com/piyushc2p" title="X">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.icons8.com/ios-filled/50/ffffff/x.png">
-      <img src="https://img.icons8.com/ios-filled/50/x.png" width="26" alt="X" />
+      <source media="(prefers-color-scheme: dark)" srcset="images/twitter.svg">
+      <img src="images/twitter-light.svg" width="20" height="20" align="middle" alt="X" />
     </picture>
   </a>
   &nbsp;&nbsp;
   <a href="https://www.linkedin.com/in/piyush-rj" title="LinkedIn">
-    <img src="https://img.icons8.com/color/48/linkedin.png" width="28" alt="LinkedIn" />
+    <img src="https://img.icons8.com/color/48/linkedin.png" width="28" align="middle" alt="LinkedIn" />
   </a>
   &nbsp;&nbsp;
   <a href="mailto:piyushraj26102004@gmail.com" title="Email">
-    <img src="https://img.icons8.com/color/48/gmail-new.png" width="28" alt="Email" />
+    <img src="https://img.icons8.com/color/48/gmail-new.png" width="28" align="middle" alt="Email" />
   </a>
 </p>
