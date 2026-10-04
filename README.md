@@ -10,13 +10,13 @@ Away from the keyboard I'm usually learning Rust or sharpening my design eye.
 
 <table width="100%">
   <tr>
-    <td width="50%" colspan="3" valign="top">
+    <td width="50%" valign="top">
       <a href="https://heydarwin.app"><img src="images/darwin.png" alt="Darwin" /></a>
       <br><br>
       <b><a href="https://heydarwin.app">Darwin</a></b><br>
       An agent picks up an issue, works in its own sandbox, and opens the pull request.
     </td>
-    <td width="50%" colspan="3" valign="top">
+    <td width="50%" valign="top">
       <a href="https://winterfell.dev"><img src="images/winterfell.png" alt="Winterfell" /></a>
       <br><br>
       <b><a href="https://winterfell.dev">Winterfell</a></b><br>
@@ -24,19 +24,13 @@ Away from the keyboard I'm usually learning Rust or sharpening my design eye.
     </td>
   </tr>
   <tr>
-    <td width="33%" colspan="2" valign="top">
-      <a href="https://riva.piyushraj.site"><img src="images/riva.png" alt="Riva" /></a>
-      <br><br>
-      <b><a href="https://riva.piyushraj.site">Riva</a></b><br>
-      Motion-first React components on real spring physics, added through the shadcn CLI.
-    </td>
-    <td width="33%" colspan="2" valign="top">
+    <td width="50%" valign="top">
       <a href="https://highgarden.trade"><img src="images/highgarden.png" alt="HighGarden" /></a>
       <br><br>
       <b><a href="https://highgarden.trade">HighGarden</a></b><br>
       A prediction market built on Solana, made to settle fast. Trade yes/no outcomes in USDC.
     </td>
-    <td width="33%" colspan="2" valign="top">
+    <td width="50%" valign="top">
       <a href="https://nocturn.app"><img src="images/nocturn.png" alt="Nocturn" /></a>
       <br><br>
       <b><a href="https://nocturn.app">Nocturn</a></b><br>
