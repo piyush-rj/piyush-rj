@@ -10,7 +10,7 @@ no CSS, no fonts), so GitHub's image proxy plays it as-is.
 
     python3 kerning.py         (macOS + Chrome: word and letter positions come from Chrome)
 
-BEAT SHEET (seconds, T = 40)
+BEAT SHEET (seconds, T = 40.5)
   0    the mess
   1    he walks in from off the right edge, stops, "!", facepalm, sigh, cracks his knuckles
   5.8  the divider: hauls the broken half off the floor, jumps onto the tilted half, which
@@ -23,7 +23,7 @@ BEAT SHEET (seconds, T = 40)
  23.6  line 3: pushes the centred line to the margin, eyedroppers ink from "Currently" onto the
        grey "designing", stomps "Labs" down to size, flicks the full stop home
  31    admires it through a finger frame, nods, dusts off
- 34.6  leans on the full stop. It pops out. Everything falls back to frame 0. He shrugs, runs off.
+ 34.6  leans on the full stop. It pops out. Everything falls back to frame 0. He shrugs, sprints off.
 """
 import html
 import json
@@ -33,7 +33,7 @@ import re
 import subprocess
 import tempfile
 
-T, EPS = 40.0, 0.002
+T, EPS = 40.5, 0.002
 W, H, FLOOR = 830, 210, 204
 H1_Y, RULE_Y, P_Y = 32, 50, [84, 124, 164]
 CAP = 11.5                       # cap height of the 16px body text: where feet land on a word
@@ -341,6 +341,13 @@ POSES = {
                  LK=(-7, -8), LF=(-12, -6), RK=(3, -6), RF=(2, 0)),
     "runC": dict(H=(6, -30), N=(5, -25), P=(0, -14), LE=(2, -20), LH=(3, -14), RE=(4, -21), RH=(5, -15),
                  LK=(6, -9), LF=(3, -4), RK=(-3, -8), RF=(-6, -2)),
+    # sprint: long stride, hard lean. The planted foot travels +15 > +2 > -10 under him.
+    "sprA": dict(H=(8, -27), N=(7, -22), P=(0, -13), LE=(-3, -19), LH=(-9, -16), RE=(10, -19), RH=(15, -23),
+                 LK=(-7, -8), LF=(-14, -4), RK=(9, -8), RF=(15, -1)),
+    "sprB": dict(H=(8, -26), N=(7, -21), P=(0, -12), LE=(-1, -18), LH=(-4, -13), RE=(8, -18), RH=(11, -21),
+                 LK=(-6, -10), LF=(-13, -9), RK=(4, -6), RF=(2, 0)),
+    "sprC": dict(H=(8, -28), N=(7, -23), P=(0, -14), LE=(3, -20), LH=(6, -15), RE=(4, -20), RH=(2, -14),
+                 LK=(7, -10), LF=(6, -6), RK=(-4, -7), RF=(-10, -1)),
 }
 POSES["push2"] = pose(POSES["push"], LK=(3, -7), LF=(2, 0), RK=(-4, -6), RF=(-9, 0))
 
@@ -352,16 +359,21 @@ def mirror(p):
     return q
 
 
-for _k in ("walkA", "walkB", "walkC", "walkD", "runA", "runB", "runC"):
+for _k in ("walkA", "walkB", "walkC", "walkD", "runA", "runB", "runC", "sprA", "sprB", "sprC"):
     POSES[_k + "2"] = mirror(POSES[_k])
-for _k in ("walkA", "walkB", "walkC", "walkD", "walkA2", "walkB2", "walkC2", "walkD2"):   # walking with arms full
+for _k in [k for k in POSES if k.startswith(("walk", "run", "spr"))]:   # the same gaits with arms full
     POSES["c" + _k] = pose(POSES[_k], UP)
-    POSES["l" + _k] = pose(POSES[_k], LOW)
+    _push = {j: POSES["push"][j] for j in ("H", "N", "LE", "LH", "RE", "RH")}
+    POSES["p" + _k] = pose(POSES[_k], _push)             # ...and leaning into something overhead
 for _k in ("stand", "hold", "low", "lean", "frame", "spread", "press", "knuckle", "reach"):
     POSES[_k + "_b"] = {j: (x, y - (1 if j in ("H", "N") else 0.6 if j[1:] in ("E", "H") and j != "H" else 0))
                         for j, (x, y) in POSES[_k].items()}
 WALK = ["walkA", "walkB", "walkC", "walkD", "walkA2", "walkB2", "walkC2", "walkD2"]
 RUN = ["runA", "runB", "runC", "runA2", "runB2", "runC2"]
+SPRINT = ["sprA", "sprB", "sprC", "sprA2", "sprB2", "sprC2"]
+# how far the planted foot travels backwards per frame of each cycle. Moving the body at exactly
+# stride / frame keeps that foot still on the ground; any other pace and he skates.
+STRIDE = {"walk": 4.0, "run": 8.5, "spr": 12.5}
 LIMBS = [("N", "P"), ("N", "LE", "LH"), ("N", "RE", "RH"), ("P", "LK", "LF"), ("P", "RK", "RF")]
 
 
@@ -406,12 +418,21 @@ class Man:
             self.pos.add(t, (x + amp * (rnd(i * 3.1) - 0.5) * 2, y + amp * 0.5 * (rnd(i * 7.7) - 0.5) * 2))
         self.pos.add(t1, (x, y))
 
-    def walk(self, t0, t1, x1, cycle=WALK, frame=0.075, e="lin"):
+    def walk(self, t0, t1, x1, cycle=None, frame=None, e="lin", arms=""):
+        """Get to x1 by t1 on foot. With no cycle given the gait follows the speed (walk, run,
+        sprint), and the step rate is set from that gait's stride so the feet never slide."""
         self.pos.hold(t0)
         x0, y = self.pos.v
+        v = abs(x1 - x0) / (t1 - t0)
+        if cycle is None:
+            cycle = WALK if v < 100 else RUN if v < 200 else SPRINT
+            cycle = [arms + k for k in cycle]
+        if frame is None:
+            stride = next(s for k, s in STRIDE.items() if cycle[0].lstrip("cp").startswith(k))
+            frame = min(0.12, max(0.035, stride / max(v, 1e-6)))
         t, i = t0, 0
         while t < t1 - 1e-6:
-            self.pose(t, cycle[i % len(cycle)], frame * 0.95, "inout")
+            self.pose(t, cycle[i % len(cycle)], frame * 0.98, "lin")
             t += frame
             i += 1
             tt = min(t, t1)
@@ -912,7 +933,7 @@ man.turn(END_L2 + 0.15, -1)
 man.walk(END_L2 + 0.2, 20.55, L1X["I"][0] + 1)
 man.pose(20.62, "hold", 0.08)
 man.pose(20.75, "hold", 0.05)
-man.walk(20.75, 22.0, 6, cycle=["c" + k for k in WALK])
+man.walk(20.75, 22.0, 6, arms="c")
 wI.follow(man, 20.62, 22.0, off=(0, -5))     # after the walk exists, so the grip is known
 # the others make room as he arrives
 for k, key in enumerate(("product", "design")):
@@ -940,7 +961,7 @@ man.pose(23.42, "dust2", 0.06)
 man.pose(23.52, "stand", 0.08)
 
 # ---- ACT 6  line 3: push it to the margin, fix the colour, the size, the full stop
-man.hop(23.62, 24.02, 300, FLOOR, 20)
+man.hop(23.62, 24.06, 430, FLOOR, 22)
 right_edge = W3["Labs"].cx + SHIFT + W3["Labs"].w * 2.0 / 2
 man.walk(24.08, 24.55, right_edge + 12)
 man.turn(24.57, -1)
@@ -949,7 +970,7 @@ T_P0, T_P1 = 24.7, 26.1
 for it in L3W:
     if it is not DOT:
         it.tr.to(T_P0, T_P1, (0.0, 0.0), "inout")
-man.walk(T_P0, T_P1, right_edge + 12 - SHIFT, cycle=["push", "push2"], frame=0.18, e="inout")
+man.walk(T_P0, T_P1, right_edge + 12 - SHIFT, arms="p")
 for k in range(4):
     dust(right_edge + 12 - SHIFT * (k + 0.5) / 4 + 4, FLOOR, T_P0 + (T_P1 - T_P0) * (k + 0.5) / 4)
 jolt(T_P1, 1.8)
@@ -1081,8 +1102,9 @@ man.turn(A7 + 6.17, -1)
 man.pose(A7 + 6.40, "shrug", 0.14)
 man.pose(A7 + 6.75, "stand", 0.1)
 man.turn(A7 + 6.80, 1)
-man.walk(A7 + 6.85, A7 + 8.25, 880, cycle=RUN, frame=0.06, e="in")
-man.pose(A7 + 8.35, "stand", 0.05)
+man.pose(A7 + 6.9, "crouch", 0.08)                 # a dip before he bolts
+man.walk(A7 + 6.95, A7 + 9.25, 862)
+man.pose(A7 + 9.3, "stand", 0.05)
 man.at(T, 870, FLOOR)                # back where frame 0 has him, out of sight
 
 
