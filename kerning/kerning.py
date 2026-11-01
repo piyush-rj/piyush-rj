@@ -718,10 +718,11 @@ def holder_out(i, t):
 def holders_svg(p):
     out = []
     for it, (op, sc) in zip(H1, HOLD):
-        cx, cy = it.cx, 22
+        x0 = max(1.5, it.x - 1)       # the first holder sits flush with the page edge, not past it
+        cx, cy, w = (x0 + it.x + it.w + 1) / 2, 22, it.x + it.w + 1 - x0
         out.append(f'<g transform="translate({n(cx)} {cy})"><g opacity="0">' + animate("opacity", op)
                    + f'<g transform="scale(0.85)">' + anim_tf("scale", sc, f_u)
-                   + f'<rect x="{n(-it.w / 2 - 1)}" y="-15" width="{n(it.w + 2)}" height="31" rx="2" fill="none" '
+                   + f'<rect x="{n(-w / 2)}" y="-15" width="{n(w)}" height="31" rx="2" fill="none" '
                    f'stroke="{p["accent"]}" stroke-width="1" stroke-dasharray="2.5 2"/></g></g></g>')
     return "".join(out)
 
@@ -967,10 +968,14 @@ man.walk(24.08, 24.55, right_edge + 12)
 man.turn(24.57, -1)
 man.pose(24.65, "push", 0.08)
 T_P0, T_P1 = 24.7, 26.1
-for it in L3W:
-    if it is not DOT:
-        it.tr.to(T_P0, T_P1, (0.0, 0.0), "inout")
 man.walk(T_P0, T_P1, right_edge + 12 - SHIFT, arms="p")
+_x0 = man.pos.at(T_P0)[0]
+for it in L3W:                    # the line moves with him, frame for frame: no lag, no catching up
+    if it is not DOT:
+        it.tr.hold(T_P0)
+        for k in range(1, 43):
+            tt = T_P0 + (T_P1 - T_P0) * k / 42
+            it.tr.add(tt, (SHIFT + man.pos.at(tt)[0] - _x0, 0.0))
 for k in range(4):
     dust(right_edge + 12 - SHIFT * (k + 0.5) / 4 + 4, FLOOR, T_P0 + (T_P1 - T_P0) * (k + 0.5) / 4)
 jolt(T_P1, 1.8)
